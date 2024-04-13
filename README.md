@@ -82,9 +82,10 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
   * Leads to **Settings screen**
 
 
-## Wireframes
+## Wireframes!
 
-[Add picture of your hand sketched wireframes in this section]
+![TravelSnap Wireframe Sketch](https://github.com/Travel-Snap/TravelSnap/assets/78409617/9374b101-07da-4f3a-a404-2da7837d11e3)
+
 
 ### [BONUS] Digital Wireframes & Mockups
 ![alt-text](DigitalWireframes.png)
