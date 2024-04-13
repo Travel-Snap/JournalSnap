@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  TravelSnap
 //
-//  Created by Abby Damodaran on 4/13/24.
+//  Created by Lixing Zheng on 4/13/24.
 //
 
 import SwiftUI

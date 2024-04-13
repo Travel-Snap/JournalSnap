@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D6B3F0C2BCB0EC900112213 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B3F0B2BCB0EC900112213 /* ContentView.swift */; };
+		4DAC6AE12BCB10D4005D4C79 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC6AE02BCB10D4005D4C79 /* ProfileView.swift */; };
+		4DAC6AE32BCB1217005D4C79 /* JournalIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC6AE22BCB1217005D4C79 /* JournalIconView.swift */; };
 		FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4072442BCB08B8005BB784 /* TravelSnapApp.swift */; };
-		FC4072472BCB08B8005BB784 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4072462BCB08B8005BB784 /* ContentView.swift */; };
 		FC4072492BCB08BA005BB784 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC4072482BCB08BA005BB784 /* Assets.xcassets */; };
 		FC40724C2BCB08BA005BB784 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC40724B2BCB08BA005BB784 /* Preview Assets.xcassets */; };
 		FC4072562BCB08BA005BB784 /* TravelSnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4072552BCB08BA005BB784 /* TravelSnapTests.swift */; };
@@ -34,9 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D6B3F0B2BCB0EC900112213 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4DAC6AE02BCB10D4005D4C79 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4DAC6AE22BCB1217005D4C79 /* JournalIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalIconView.swift; sourceTree = "<group>"; };
 		FC4072412BCB08B8005BB784 /* TravelSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4072442BCB08B8005BB784 /* TravelSnapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSnapApp.swift; sourceTree = "<group>"; };
-		FC4072462BCB08B8005BB784 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FC4072482BCB08BA005BB784 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC40724B2BCB08BA005BB784 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FC4072512BCB08BA005BB784 /* TravelSnapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelSnapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				FC4072442BCB08B8005BB784 /* TravelSnapApp.swift */,
-				FC4072462BCB08B8005BB784 /* ContentView.swift */,
+				4D6B3F0B2BCB0EC900112213 /* ContentView.swift */,
+				4DAC6AE02BCB10D4005D4C79 /* ProfileView.swift */,
+				4DAC6AE22BCB1217005D4C79 /* JournalIconView.swift */,
 				FC4072482BCB08BA005BB784 /* Assets.xcassets */,
 				FC40724A2BCB08BA005BB784 /* Preview Content */,
 			);
@@ -257,8 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC4072472BCB08B8005BB784 /* ContentView.swift in Sources */,
+				4D6B3F0C2BCB0EC900112213 /* ContentView.swift in Sources */,
+				4DAC6AE12BCB10D4005D4C79 /* ProfileView.swift in Sources */,
 				FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */,
+				4DAC6AE32BCB1217005D4C79 /* JournalIconView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
