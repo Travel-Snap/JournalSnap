@@ -29,7 +29,7 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 
 **Required Must-have Stories**
 
-* [ ] Register a account (login screen)
+* [X] Register a account (login screen)
 * [ ] Create Post (new post screen)
 * [ ] Users can see post history (history/feed screen)
 
@@ -41,8 +41,8 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 * [ ] Users can track their travel budgets daily
 
 ### 2. Screen Archetypes
-
-* [ ] **Authentication Screen**
+* [X] **Welcome Screen**
+* [X] **Authentication Screen**
 * User can log in.
 * User ca sign up.
 * [ ] **Feed Screen**
@@ -75,9 +75,9 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 
 **Flow Navigation** (Screen to Screen)
 
-- [ ] **Login Screen**
+-  **Login Screen**
   * Leads to **Feed Screen**
-- [ ] **Profile Screen**
+-  **Profile Screen**
   * Leads to **Detail Post Screen**
   * Leads to **Settings screen**
 
