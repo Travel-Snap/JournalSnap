@@ -34,4 +34,5 @@ struct TestView: View {
 #Preview {
     TestView()
         .environment(AuthViewModel())
+        .environment(Router())
 }
