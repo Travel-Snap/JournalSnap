@@ -17,19 +17,23 @@ struct User {
 struct JournalEntry {
     let title: String
     let image: String // Name of the image in the assets catalog
+    let caption: String
+    let date: String
+    let location: String
+
 }
 
 // Mock data for users
 let mockUsers: [User] = [
     User(name: "John John", journals: [
-        JournalEntry(title: "Morning Walk", image: "MorningWalkMockImage"),
-        JournalEntry(title: "Lunch with Friends", image: "LunchFriendsMockImage"),
-        JournalEntry(title: "Sunset Beach", image: "SunSetMockImage")
+        JournalEntry(title: "Place one", image: "MorningWalkMockImage", caption: "This is descriptopn", date:"some date", location:"some location"),
+        JournalEntry(title: "Place two", image: "LunchFriendsMockImage", caption: "This is descriptopn", date:"some date", location:"some location"),
+        JournalEntry(title: "Place three", image: "SunSetMockImage", caption: "This is descriptopn", date:"some date", location:"some location")
     ]),
     User(name: "Jane Smith", journals: [
-        JournalEntry(title: "Hiking Adventure", image: "hiking_adventure"),
-        JournalEntry(title: "Coffee Date", image: "coffee_date"),
-        JournalEntry(title: "City Lights", image: "city_lights")
+        JournalEntry(title: "Hiking Adventure", image: "hiking_adventure", caption: "This is descriptopn", date:"some date", location:"some location"),
+        JournalEntry(title: "Coffee Date", image: "coffee_date", caption: "This is descriptopn", date:"some date", location:"some location"),
+        JournalEntry(title: "City Lights", image: "city_lights", caption: "This is descriptopn", date:"some date", location:"some location")
     ])
 ]
 
@@ -38,25 +42,38 @@ struct ProfileView: View {
     let user: User // Pass user as a parameter
     
     var body: some View {
-        VStack {
+        NavigationView {
+            VStack {
+                HStack {
                     Text("My Journals")
                         .font(.title)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .fontWeight(.bold)
                         .padding()
-                    
-                    ScrollView {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
-                            ForEach(user.journals, id: \.title) { journal in
+                                   
+                    Spacer()
+                                   
+                    // Settings icon
+                    //NavigationLink(destination: SettingsView()) {
+                      //      Image(systemName: "gearshape.fill")
+                        //    .font(.title)
+                          //  .foregroundColor(.blue)
+                            //.padding()
+                              //     }
+                               }
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
+                        ForEach(user.journals, id: \.title) { journal in
+                            NavigationLink(destination: JournalDetailView(journal: journal)) {
                                 JournalIconView(journal: journal)
-            
                             }
                         }
-                        .padding([.horizontal, .bottom], 20)
                     }
+                    .padding([.horizontal, .bottom], 20)
                 }
             }
+        }
+    }
 }
-
 // Preview for ProfileView using mock data
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {

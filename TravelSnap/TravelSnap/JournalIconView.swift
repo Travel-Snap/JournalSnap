@@ -40,7 +40,7 @@ struct JournalIconView: View {
 
 struct JournalIconView_Previews: PreviewProvider {
     static var previews: some View {
-        let journal = JournalEntry(title: "Morning Walk", image: "MorningWalkMockImage")
+        let journal = JournalEntry(title: "Place one", image: "MorningWalkMockImage", caption: "This is", date:"some date", location:"some location")
         return JournalIconView(journal: journal)
 
     }
