@@ -17,6 +17,11 @@
 		3BF4701F2BCDCC7E005A9CC8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF4701E2BCDCC7E005A9CC8 /* FirebaseFirestoreSwift */; };
 		3BF470212BCDCC7E005A9CC8 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF470202BCDCC7E005A9CC8 /* FirebaseStorage */; };
 		3BF470232BCDD778005A9CC8 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF470222BCDD778005A9CC8 /* WelcomeView.swift */; };
+		7B7DC9072BD2E2F4005EEAB2 /* HomeFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DC9062BD2E2F4005EEAB2 /* HomeFeedView.swift */; };
+		7B7DC9092BD2E34D005EEAB2 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DC9082BD2E34D005EEAB2 /* PostView.swift */; };
+		7B7DC90C2BD2E447005EEAB2 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DC90B2BD2E447005EEAB2 /* Post.swift */; };
+		7B7DC90E2BD2E60D005EEAB2 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DC90D2BD2E60D005EEAB2 /* DummyData.swift */; };
+		7B7DC9102BD2E636005EEAB2 /* HomeFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DC90F2BD2E636005EEAB2 /* HomeFeedViewModel.swift */; };
 		FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4072442BCB08B8005BB784 /* TravelSnapApp.swift */; };
 		FC4072492BCB08BA005BB784 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC4072482BCB08BA005BB784 /* Assets.xcassets */; };
 		FC40724C2BCB08BA005BB784 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC40724B2BCB08BA005BB784 /* Preview Assets.xcassets */; };
@@ -49,6 +54,11 @@
 		3BF470132BCDA431005A9CC8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		3BF470172BCDB06C005A9CC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3BF470222BCDD778005A9CC8 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		7B7DC9062BD2E2F4005EEAB2 /* HomeFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedView.swift; sourceTree = "<group>"; };
+		7B7DC9082BD2E34D005EEAB2 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		7B7DC90B2BD2E447005EEAB2 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		7B7DC90D2BD2E60D005EEAB2 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
+		7B7DC90F2BD2E636005EEAB2 /* HomeFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedViewModel.swift; sourceTree = "<group>"; };
 		FC4072412BCB08B8005BB784 /* TravelSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4072442BCB08B8005BB784 /* TravelSnapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSnapApp.swift; sourceTree = "<group>"; };
 		FC4072482BCB08BA005BB784 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +99,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B7DC90A2BD2E43A005EEAB2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7B7DC90B2BD2E447005EEAB2 /* Post.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FC4072382BCB08B8005BB784 = {
 			isa = PBXGroup;
 			children = (
@@ -112,11 +130,16 @@
 		FC4072432BCB08B8005BB784 /* TravelSnap */ = {
 			isa = PBXGroup;
 			children = (
+				7B7DC90A2BD2E43A005EEAB2 /* Models */,
 				3BF470172BCDB06C005A9CC8 /* GoogleService-Info.plist */,
 				FC4072442BCB08B8005BB784 /* TravelSnapApp.swift */,
 				FC4072482BCB08BA005BB784 /* Assets.xcassets */,
 				FC40724A2BCB08BA005BB784 /* Preview Content */,
 				3BF470112BCD9BBC005A9CC8 /* AuthenticationView.swift */,
+				7B7DC9062BD2E2F4005EEAB2 /* HomeFeedView.swift */,
+				7B7DC90D2BD2E60D005EEAB2 /* DummyData.swift */,
+				7B7DC90F2BD2E636005EEAB2 /* HomeFeedViewModel.swift */,
+				7B7DC9082BD2E34D005EEAB2 /* PostView.swift */,
 				3BF470132BCDA431005A9CC8 /* AuthViewModel.swift */,
 				3BF470222BCDD778005A9CC8 /* WelcomeView.swift */,
 				3BA142832BD14AA70087F51D /* TestView.swift */,
@@ -292,9 +315,14 @@
 			files = (
 				3BF470142BCDA431005A9CC8 /* AuthViewModel.swift in Sources */,
 				3BA142842BD14AA70087F51D /* TestView.swift in Sources */,
+				7B7DC9092BD2E34D005EEAB2 /* PostView.swift in Sources */,
+				7B7DC9072BD2E2F4005EEAB2 /* HomeFeedView.swift in Sources */,
 				FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */,
 				3BF470122BCD9BBC005A9CC8 /* AuthenticationView.swift in Sources */,
+				7B7DC90C2BD2E447005EEAB2 /* Post.swift in Sources */,
 				3BB1ED932BD1D7900011711F /* Router.swift in Sources */,
+				7B7DC9102BD2E636005EEAB2 /* HomeFeedViewModel.swift in Sources */,
+				7B7DC90E2BD2E60D005EEAB2 /* DummyData.swift in Sources */,
 				3BF470232BCDD778005A9CC8 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
