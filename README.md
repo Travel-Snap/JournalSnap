@@ -36,7 +36,7 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 
 **Optional Nice-to-have Stories**
 * [ ] Users can see posts from other users (social feed)
-* [ ] Users can see settings to delete account, for example (settings screen)
+* [x] Users can see settings to delete account, for example (settings screen)
 * [ ] User can integrate their journals to other social platforms
 * [ ] Users can track weather information base on location and time
 * [ ] Users can track their travel budgets daily
