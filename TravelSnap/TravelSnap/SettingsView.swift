@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
+        
     var body: some View {
-        NavigationView {
+
             List {
                 Section {
                     NavigationLink(destination: PersonalInfoView()) {
@@ -25,7 +29,14 @@ struct SettingsView: View {
                         // TODO: Change username screen
                     }
                     Button(action: {
-                        // TODO: Log out action implementation
+                        Task {
+                            do {
+                                try await authViewModel.logOut()
+                                router.popToRoot()
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
                     }) {
                         Text("Log out")
                     }
@@ -38,35 +49,37 @@ struct SettingsView: View {
                 }
             }
             .navigationBarTitle("Settings")
-        }
     }
 }
 
 struct PersonalInfoView: View {
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
     var body: some View {
         Text("Personal information")
     }
 }
 
 struct ChangePasswordView: View {
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
     var body: some View {
         Text("Change password")
     }
 }
 
 struct ChangeUsernameView: View {
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
     var body: some View {
         Text("Change username")
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
     }
 }
 
 
 #Preview {
     SettingsView()
+        .environment(AuthViewModel())
+        .environment(Router())
+    
 }

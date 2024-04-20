@@ -31,12 +31,12 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 
 * [X] Register a account (login screen)
 * [ ] Create Post (new post screen)
-* [x] Users can see post history (history/feed screen)
-* [x] Users can see their profile (profile screen)
+* [ ] Users can see post history (history/feed screen)
+* [ ] Users can see their post (profile screen)
 
 **Optional Nice-to-have Stories**
 * [ ] Users can see posts from other users (social feed)
-* [x] Users can see settings to delete account, for example (settings screen)
+* [x] Users can see settings to log out, for example (settings screen)
 * [ ] User can integrate their journals to other social platforms
 * [ ] Users can track weather information base on location and time
 * [ ] Users can track their travel budgets daily
@@ -44,44 +44,46 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 ### 2. Screen Archetypes
 * [X] **Welcome Screen**
 * [X] **Authentication Screen**
-* User can log in.
-* User ca sign up.
-* [ ] **Feed Screen**
-* User can see feed of posts from other users.
-* [ ] **New Post Screen**
-* User can upload photos.
-* User can pin travel location on the map.
-* User can write descriptions about the travel.
-* [ ] **Profile Screen**
-* User can see all their post and tap on them to go to the detail post screen
-* There is a button to go to the settings
-* Users can see their profile picture
-* [ ] **Settings Screen**
-* Users can delete account
-* Users can logout
-* Users can change username or password
-* [ ] **Detail Post Screen**
-* Users can see all the details of their post
+* [X] User can log in.
+* [X] User ca sign up.
+* [X] **Feed Screen**
+* [ ] User can see feed of posts from other users.
+* [X] **New Post Screen**
+* [ ] User can upload photos.
+* [ ] User can pin travel location on the map.
+* [ ] User can write descriptions about the travel.
+* [X] **Profile Screen**
+* [X] User can see all their post and tap on them to go to the detail post screen
+* [X] There is a button to go to the settings
+* [ ] Users can see their profile picture
+* [X] **Settings Screen**
+* [ ] Users can delete account
+* [X] Users can logout
+* [ ] Users can change username or password
+* [X] **Detail Post Screen**
+* [ ] Users can see all the details of their post
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 
-- [ ] Home tab for social Feeds
-- [ ] Create tab for making new journals/post
-- [ ] Journal tab for personal travel timeline/post
-- [ ] Profile tab for personal information and settings
+- [X] Home tab for social Feeds
+- [X] Create tab for making new journals/post
+- [X] Home tab for all the journals posted
+- [X] Profile tab for personal information and settings
 
 
 **Flow Navigation** (Screen to Screen)
 
--  **Login Screen**
+-  **Login/signup Screen**
   * Leads to **Feed Screen**
 -  **Profile Screen**
   * Leads to **Detail Post Screen**
   * Leads to **Settings screen**
 
+## Build progress
+![alt-text](currentBuildProgress.gif)
 
 ## Wireframes!
 

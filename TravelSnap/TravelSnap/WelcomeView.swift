@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct WelcomeView: View {
     
@@ -117,9 +118,9 @@ struct WelcomeView: View {
                             
                             timer.invalidate()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                if authViewModel.user != nil {
+                                if Auth.auth().currentUser != nil {
                                     //Feed screen
-                                    router.navigate(to: .test)
+                                    router.navigate(to: .tabBar)
                                 } else {
                                     router.navigate(to: .authentication)
                                 }
