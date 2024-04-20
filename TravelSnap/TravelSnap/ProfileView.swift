@@ -20,7 +20,7 @@ struct JournalEntry {
     let caption: String
     let date: String
     let location: String
-
+    
 }
 
 // Mock data for users
@@ -39,6 +39,9 @@ let mockUsers: [User] = [
 
 // Profile view displaying user's journals
 struct ProfileView: View {
+    
+    @Environment(Router.self) var router
+    
     let user: User // Pass user as a parameter
     
     var body: some View {
@@ -49,23 +52,37 @@ struct ProfileView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .padding()
-                                   
+                    
                     Spacer()
-                                   
-                    // Settings icon
-                    //NavigationLink(destination: SettingsView()) {
-                      //      Image(systemName: "gearshape.fill")
-                        //    .font(.title)
-                          //  .foregroundColor(.blue)
-                            //.padding()
-                              //     }
-                               }
+                    
+                    //           Settings icon
+                    Button(action: {
+                        router.navigate(to: .settings)
+                    }, label: {
+                        Image(systemName: "gearshape.fill")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .padding()
+                    })
+                    //                    NavigationLink(destination: SettingsView()) {
+                    //                            Image(systemName: "gearshape.fill")
+                    //                            .font(.title)
+                    //                            .foregroundColor(.blue)
+                    //                            .padding()
+                    //                                   }
+                }
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
                         ForEach(user.journals, id: \.title) { journal in
-                            NavigationLink(destination: JournalDetailView(journal: journal)) {
+                            Button(action: {
+                                router.navigate(to: .detailsView)
+                            }, label: {
                                 JournalIconView(journal: journal)
-                            }
+                            })
+                            
+//                            NavigationLink(destination: JournalDetailView()) {
+//                                JournalIconView(journal: journal)
+//                            }
                         }
                     }
                     .padding([.horizontal, .bottom], 20)
@@ -78,5 +95,6 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView(user: mockUsers[0]) // Pass a user from mockUsers
+            .environment(Router())
     }
 }

@@ -10,10 +10,11 @@ import SwiftUI
 
 
 struct JournalDetailView: View {
-    let journal: JournalEntry
+    
+    let journal: JournalEntry = mockUsers[0].journals[0]
     
     var body: some View {
-        NavigationView {
+
             VStack (alignment: .leading){
                 // Display the image associated with the journal entry
                 Image(journal.image)
@@ -72,23 +73,23 @@ struct JournalDetailView: View {
             }
             .padding(.horizontal)
             //.navigationBarItems(trailing:
-              //              NavigationLink(destination: EditJournalView(journal: journal)) {
-                               // Image(systemName: "pencil")
-                                 //   .font(.title)
-                                   // .foregroundColor(.blue)
-                                    //.padding()
-                //            }
-                //)
+            //              NavigationLink(destination: EditJournalView(journal: journal)) {
+            // Image(systemName: "pencil")
+            //   .font(.title)
+            // .foregroundColor(.blue)
+            //.padding()
+            //            }
+            //)
             .navigationBarTitle(journal.title)
             .navigationBarTitleDisplayMode(.inline)
-        }
+        
     }
 }
 
 struct JournalDetailView_Previews: PreviewProvider {
     static var previews: some View {
         // Preview the JournalDetailView with a mock journal entry
-        JournalDetailView(journal: mockUsers[0].journals[0])
+        JournalDetailView()
     }
 }
 
