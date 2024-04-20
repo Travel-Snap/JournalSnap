@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BA142842BD14AA70087F51D /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA142832BD14AA70087F51D /* TestView.swift */; };
 		3BB1ED932BD1D7900011711F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1ED922BD1D7900011711F /* Router.swift */; };
 		3BE490AC2BD3145400E85365 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE490AB2BD3145400E85365 /* TabBarView.swift */; };
 		3BF470142BCDA431005A9CC8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF470132BCDA431005A9CC8 /* AuthViewModel.swift */; };
@@ -54,7 +53,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3BA142832BD14AA70087F51D /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		3BB1ED922BD1D7900011711F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		3BE490AB2BD3145400E85365 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		3BF470112BCD9BBC005A9CC8 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
@@ -111,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B64AEBB2BD3857E00C3880D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7B7DC9062BD2E2F4005EEAB2 /* HomeFeedView.swift */,
+				7B7DC90F2BD2E636005EEAB2 /* HomeFeedViewModel.swift */,
+				7B7DC90D2BD2E60D005EEAB2 /* DummyData.swift */,
+				7B7DC9082BD2E34D005EEAB2 /* PostView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		3BE490AD2BD3173D00E85365 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,15 +166,11 @@
 				FC40724A2BCB08BA005BB784 /* Preview Content */,
 				7B7DC90A2BD2E43A005EEAB2 /* Models */,
 				3BE490AD2BD3173D00E85365 /* Authentication */,
+				3B64AEBB2BD3857E00C3880D /* Home */,
 				4DAC6AE22BCB1217005D4C79 /* JournalIconView.swift */,
 				4DAC6AE02BCB10D4005D4C79 /* ProfileView.swift */,
-				7B7DC9062BD2E2F4005EEAB2 /* HomeFeedView.swift */,
 				4DAC6AE42BD2CA6D005D4C79 /* DetailJournalView.swift */,
-				7B7DC90D2BD2E60D005EEAB2 /* DummyData.swift */,
-				7B7DC90F2BD2E636005EEAB2 /* HomeFeedViewModel.swift */,
-				7B7DC9082BD2E34D005EEAB2 /* PostView.swift */,
 				3BF470222BCDD778005A9CC8 /* WelcomeView.swift */,
-				3BA142832BD14AA70087F51D /* TestView.swift */,
 				FCC84D842BD370F00092F6AC /* SettingsView.swift */,
 				FCC84D862BD377C40092F6AC /* CreatePostView.swift */,
 				3BB1ED922BD1D7900011711F /* Router.swift */,
@@ -345,7 +350,6 @@
 				4DAC6AE52BD2CA6D005D4C79 /* DetailJournalView.swift in Sources */,
 				4DAC6AE32BCB1217005D4C79 /* JournalIconView.swift in Sources */,
 				3BF470142BCDA431005A9CC8 /* AuthViewModel.swift in Sources */,
-				3BA142842BD14AA70087F51D /* TestView.swift in Sources */,
 				4DAC6AE82BD3030C005D4C79 /* AuthenticationView.swift in Sources */,
 				FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */,
 				7B7DC9092BD2E34D005EEAB2 /* PostView.swift in Sources */,

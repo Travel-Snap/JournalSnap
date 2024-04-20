@@ -14,7 +14,6 @@ class Router {
     // Enum defining possible destinations for navigation
     enum Destination: Codable, Hashable {
         case authentication
-        case test
         case tabBar
         case detailsView
         case settings

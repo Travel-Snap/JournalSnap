@@ -31,14 +31,12 @@ struct TravelSnapApp: App {
                         switch destination {
                         case .authentication:
                             AuthenticationView()
-                        case .test:
-                            TestView()
                         case .tabBar:
                             TabBarView()
                         case .detailsView:
                             JournalDetailView()
                         case .settings:
-                            TestView()
+                            SettingsView()
                    
                         }
                     }

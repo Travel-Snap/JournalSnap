@@ -19,7 +19,10 @@ struct TabBarView: View {
                     Label("", systemImage: "house")
                 }
             
-            // create screen
+            CreatePostView()
+                .tabItem {
+                    Label("", systemImage: "plus.app")
+                }
             
             ProfileView(user: mockUsers.first!)
                 .tabItem {

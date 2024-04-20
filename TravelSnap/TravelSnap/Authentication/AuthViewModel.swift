@@ -13,9 +13,6 @@ import FirebaseFirestore
 @Observable
 class AuthViewModel {
     
-    // Current user object retrieved from FirebaseAuth
-    let user = Auth.auth().currentUser
-    
     // Function to sign up a new user and save the user's data in Firestore
     func signUp(username: String, email: String, password: String) async throws {
         let userReference = Firestore.firestore().collection("Users")
