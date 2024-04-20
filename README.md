@@ -31,7 +31,7 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 
 * [X] Register a account (login screen)
 * [ ] Create Post (new post screen)
-* [ ] Users can see post history (history/feed screen)
+* [x] Users can see post history (history/feed screen)
 * [x] Users can see their profile (profile screen)
 
 **Optional Nice-to-have Stories**
