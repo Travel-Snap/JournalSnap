@@ -66,3 +66,7 @@ struct PostView: View {
         .padding()
     }
 }
+
+#Preview {
+    PostView(post: Post(userID: "", username: "Lia", userProfilePictureURL: nil, photoURL: nil, caption: "", timestamp: Date(), likes: [], comments: []))
+}

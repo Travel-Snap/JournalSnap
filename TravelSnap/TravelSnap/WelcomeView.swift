@@ -119,7 +119,7 @@ struct WelcomeView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 if authViewModel.user != nil {
                                     //Feed screen
-                                    router.navigate(to: .test)
+                                    router.navigate(to: .tabBar)
                                 } else {
                                     router.navigate(to: .authentication)
                                 }

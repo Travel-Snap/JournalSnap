@@ -33,6 +33,13 @@ struct TravelSnapApp: App {
                             AuthenticationView()
                         case .test:
                             TestView()
+                        case .tabBar:
+                            TabBarView()
+                        case .detailsView:
+                            JournalDetailView()
+                        case .settings:
+                            TestView()
+                   
                         }
                     }
             }

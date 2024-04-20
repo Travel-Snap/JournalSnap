@@ -15,6 +15,10 @@ class Router {
     enum Destination: Codable, Hashable {
         case authentication
         case test
+        case tabBar
+        case detailsView
+        case settings
+
     }
     
     // NavigationPath to keep track of navigation history

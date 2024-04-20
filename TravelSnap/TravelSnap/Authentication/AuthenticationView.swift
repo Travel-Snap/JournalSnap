@@ -89,6 +89,7 @@ struct AuthenticationView: View {
                         Task {
                             do {
                                 try await authViewModel.signUp(username: username, email: email, password: password)
+                                router.navigate(to: .tabBar)
                             } catch {
                                 print(error.localizedDescription)
                             }
@@ -97,7 +98,7 @@ struct AuthenticationView: View {
                         Task {
                             do {
                                 try await authViewModel.signIn(email: email, Password: password)
-                                router.navigate(to: .test)
+                                router.navigate(to: .tabBar)
                             } catch {
                                 print(error.localizedDescription)
                             }

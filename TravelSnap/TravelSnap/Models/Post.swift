@@ -7,8 +7,8 @@ struct Post: Identifiable, Codable {
     @DocumentID var id: String?
     var userID: String
     var username: String
-    var userProfilePictureURL: URL
-    var photoURL: URL
+    var userProfilePictureURL: URL?
+    var photoURL: URL?
     var caption: String
     var timestamp: Date
     var likes: [String]
