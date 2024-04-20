@@ -83,7 +83,7 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
   * Leads to **Settings screen**
 
 ## Build progress
-![alt-text](currentBuildProgress.png)
+![alt-text](currentBuildProgress.gif)
 
 ## Wireframes!
 
