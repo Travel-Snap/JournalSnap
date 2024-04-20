@@ -32,6 +32,8 @@
 		FC4072562BCB08BA005BB784 /* TravelSnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4072552BCB08BA005BB784 /* TravelSnapTests.swift */; };
 		FC4072602BCB08BA005BB784 /* TravelSnapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC40725F2BCB08BA005BB784 /* TravelSnapUITests.swift */; };
 		FC4072622BCB08BA005BB784 /* TravelSnapUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4072612BCB08BA005BB784 /* TravelSnapUITestsLaunchTests.swift */; };
+		FCC84D852BD370F00092F6AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC84D842BD370F00092F6AC /* SettingsView.swift */; };
+		FCC84D872BD377C40092F6AC /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC84D862BD377C40092F6AC /* CreatePostView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		FC40725B2BCB08BA005BB784 /* TravelSnapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelSnapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC40725F2BCB08BA005BB784 /* TravelSnapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSnapUITests.swift; sourceTree = "<group>"; };
 		FC4072612BCB08BA005BB784 /* TravelSnapUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSnapUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FCC84D842BD370F00092F6AC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FCC84D862BD377C40092F6AC /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,8 @@
 				3BF470132BCDA431005A9CC8 /* AuthViewModel.swift */,
 				3BF470222BCDD778005A9CC8 /* WelcomeView.swift */,
 				3BA142832BD14AA70087F51D /* TestView.swift */,
+				FCC84D842BD370F00092F6AC /* SettingsView.swift */,
+				FCC84D862BD377C40092F6AC /* CreatePostView.swift */,
 				3BB1ED922BD1D7900011711F /* Router.swift */,
 			);
 			path = TravelSnap;
@@ -328,6 +334,7 @@
 				4D6B3F0C2BCB0EC900112213 /* ContentView.swift in Sources */,
 				4DAC6AE12BCB10D4005D4C79 /* ProfileView.swift in Sources */,
 				FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */,
+				FCC84D852BD370F00092F6AC /* SettingsView.swift in Sources */,
 				4DAC6AE52BD2CA6D005D4C79 /* DetailJournalView.swift in Sources */,
 				4DAC6AE32BCB1217005D4C79 /* JournalIconView.swift in Sources */,
 				3BF470142BCDA431005A9CC8 /* AuthViewModel.swift in Sources */,
@@ -339,6 +346,7 @@
 				FC4072452BCB08B8005BB784 /* TravelSnapApp.swift in Sources */,
 				7B7DC90C2BD2E447005EEAB2 /* Post.swift in Sources */,
 				3BB1ED932BD1D7900011711F /* Router.swift in Sources */,
+				FCC84D872BD377C40092F6AC /* CreatePostView.swift in Sources */,
 				7B7DC9102BD2E636005EEAB2 /* HomeFeedViewModel.swift in Sources */,
 				7B7DC90E2BD2E60D005EEAB2 /* DummyData.swift in Sources */,
 				3BF470232BCDD778005A9CC8 /* WelcomeView.swift in Sources */,
