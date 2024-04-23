@@ -3,6 +3,9 @@ import Foundation
 import FirebaseFirestoreSwift
 import SwiftUI
 
+//MARK: I do not use this post, I created a different one in the User with properties we need for now
+//I kept it in case we have time to add more features to the entry.
+
 struct Post: Identifiable, Codable {
     @DocumentID var id: String?
     var userID: String

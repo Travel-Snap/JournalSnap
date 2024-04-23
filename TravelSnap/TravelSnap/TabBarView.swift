@@ -11,6 +11,8 @@ import SwiftUI
 struct TabBarView: View {
     
     @Environment(Router.self) var router
+    @Environment(FirebaseViewModel.self) var firebaseVM
+    
     
     var body: some View {
         TabView {
@@ -24,7 +26,7 @@ struct TabBarView: View {
                     Label("", systemImage: "plus.app")
                 }
             
-            ProfileView(user: mockUsers.first!)
+            ProfileView()
                 .tabItem {
                     Label("", systemImage: "person")
                 }
@@ -36,4 +38,5 @@ struct TabBarView: View {
 #Preview {
     TabBarView()
         .environment(Router())
+        .environment(FirebaseViewModel())
 }
