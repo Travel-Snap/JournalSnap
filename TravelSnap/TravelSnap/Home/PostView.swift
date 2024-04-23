@@ -4,43 +4,72 @@ import SwiftUI
 import FirebaseAuth
 
 struct PostView: View {
-    let post: Post
+    
+    let entry: Entry
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                AsyncImage(url: post.userProfilePictureURL) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
+                AsyncImage(url: URL(string: entry.profilePictureURL ?? "")) { phase in
+                    switch phase {
+                    case .empty:
+                        //this is the phase when it is loading and I put the progress view because I had to put something. (put whatever you like)
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(20)
+                    case .failure(_):
+                        // when user hasn't chosen a profile picture yet. (put whatever you like)
+                        Image("person")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
+                            .border(Color.black)
+                    @unknown default:
+                        Text("No image")
+                    }
                 }
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
-                .border(Color.black)
-                
-                Text(post.username)
+                Text(entry.username ?? "User")
+                    .foregroundStyle(.blue)
                 
                 Spacer()
             }
             
-            Text(post.timestamp, style: .date)
+            Text(entry.timestamp, style: .date)
+            //MARK: - the description will be shown to the details View.
+           // Text(entry.description)
             
-            Text(post.caption)
-            
-            AsyncImage(url: post.photoURL) { image in
-                image.resizable()
-            } placeholder: {
-                ProgressView()
+            AsyncImage(url: URL(string: entry.photoURL)) { phase in
+                switch phase {
+                case .empty:
+                    //same here we can use the progressView for this phase
+                    Image("SunSetMockImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 300, height: 200)
+                        .border(Color.black)
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 300, height: 200)
+                        .border(Color.black)
+                case .failure(_):
+                    Text("No image")
+                @unknown default:
+                    Text("No image")
+                }
             }
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 300, height: 200)
-            .border(Color.black)
             
+            // we can add these features next sprint if we have time or If you have time, let me know so we can work together and make it this sprint. I can add these fields to the firebase for you.
             HStack {
                 Button(action: {
                 }) {
                     Image(systemName: "heart")
-                    Text("\(post.likes.count) Likes")
+                    Text("\(entry.likes ?? 0) Likes")
                 }
                 
                 Spacer()
@@ -48,7 +77,7 @@ struct PostView: View {
                 Button(action: {
                 }) {
                     Image(systemName: "bubble.left")
-                    Text("\(post.comments.count) Comments")
+                    Text("\(entry.comments?.count ?? 0) Comments")
                 }
                 
                 Spacer()
@@ -68,5 +97,5 @@ struct PostView: View {
 }
 
 #Preview {
-    PostView(post: Post(userID: "", username: "Lia", userProfilePictureURL: nil, photoURL: nil, caption: "", timestamp: Date(), likes: [], comments: []))
+    PostView(entry: Entry(photoURL: "", description: "", timestamp: Date(), location: "", username: "Nick", profilePictureURL: ""))
 }

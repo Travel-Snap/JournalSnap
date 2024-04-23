@@ -13,11 +13,12 @@ import FirebaseFirestore
 @Observable
 class AuthViewModel {
     
+    let usersCollection = Firestore.firestore().collection("Users")
+    
     // Function to sign up a new user and save the user's data in Firestore
     func signUp(username: String, email: String, password: String) async throws {
-        let userReference = Firestore.firestore().collection("Users")
         let result = try await Auth.auth().createUser(withEmail: email, password: password)
-        try await userReference.document(result.user.uid).setData(["username": username, "email": email])
+        try await usersCollection.document(result.user.uid).setData(["username": username, "email": email])
     }
     
     // Function to sign in an existing user
@@ -28,5 +29,16 @@ class AuthViewModel {
     // Function to log out the current user
     func logOut() async throws {
         try Auth.auth().signOut()
+    }
+    
+    //Function to delete the account along with everything associated with that account.
+    func deleteAccount() async throws {
+        guard let currentUser = Auth.auth().currentUser else {return}
+        do {
+            try await usersCollection.document(currentUser.uid).delete()
+            try await Auth.auth().currentUser?.delete()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
