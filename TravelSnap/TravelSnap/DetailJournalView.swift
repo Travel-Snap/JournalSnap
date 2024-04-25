@@ -64,7 +64,8 @@ struct JournalDetailView: View {
                     
                     Spacer()
                     
-                    // Delete Entry Button
+                    if isUsersEntry{
+                        // Delete Entry Button
                         Button(action: {
                             Task {
                                 do {
@@ -85,8 +86,9 @@ struct JournalDetailView: View {
                             }
                         }
                         .padding(.horizontal)
-                    
-                    Spacer()
+                        
+                        Spacer()
+                    }
                 }
             }
             .onAppear {
