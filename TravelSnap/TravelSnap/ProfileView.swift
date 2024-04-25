@@ -19,7 +19,29 @@ struct ProfileView: View {
     
     var body: some View {
             VStack {
-                HStack {
+                HStack (alignment: .center){
+                    Spacer()
+                    VStack{
+                        if entries.indices.contains(0) {
+                            if let profilePictureURL = entries[0].profilePictureURL, let url = URL(string: profilePictureURL) {
+                                AsyncImage(url: url) { image in
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                        .clipShape(Circle())
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                            }
+                            if let username = entries[0].username {
+                                Text(username)
+                                    .fontWeight(.bold)
+                            }
+                        } else {
+                            Text("Not Available")
+                        }
+                    }
+                    
                     Text("My Journals")
                         .font(.title)
                         .fontWeight(.bold)
@@ -38,6 +60,7 @@ struct ProfileView: View {
                     })
                     
                     //TODO: because we save the username and the picture of the user, if you want to display them here before the entries, do it.
+                    Spacer()  
                 }
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
@@ -65,6 +88,7 @@ struct ProfileView: View {
                     }
                     
                 }
+                
             }
         
     }

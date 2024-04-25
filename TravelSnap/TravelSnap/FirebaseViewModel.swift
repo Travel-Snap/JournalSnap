@@ -132,4 +132,5 @@ class FirebaseViewModel {
         try await Auth.auth().sendPasswordReset(withEmail: currentUserEmail)
     }
     
+    
 }
