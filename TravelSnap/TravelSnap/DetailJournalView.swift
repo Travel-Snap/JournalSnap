@@ -19,7 +19,7 @@ struct JournalDetailView: View {
     var body: some View {
         
 
-            VStack (alignment: .leading){
+            VStack (alignment: .center){
                 // Display the image associated with the journal entry
                 
                 //I created a variable for you in the firebaseVM that gets set from the profile or the feed screen when you click an entry.
@@ -47,11 +47,9 @@ struct JournalDetailView: View {
                         .padding(.trailing) // Add trailing padding to separate from the text
                     VStack{
                         Text(firebaseVM.selectedEntry?.timestamp ?? Date(), style: .date)
-                            .font(.title)
                             .padding(.horizontal) // Add padding to the text
                             .foregroundColor(.blue)
                         Text(firebaseVM.selectedEntry?.location ?? "")
-                            .font(.title)
                             .padding(.horizontal) // Add padding to the text
                             .foregroundColor(.blue)
                     }
