@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    // Environment objects for accessing AuthViewModel and Router
     @Environment(AuthViewModel.self) var authViewModel
     @Environment(Router.self) var router
         
@@ -16,17 +17,20 @@ struct SettingsView: View {
 
             List {
                 Section {
+                    // TODO: choose a profile picture - check func - same idea with the post
+                    
                     NavigationLink(destination: PersonalInfoView()) {
                         Text("Personal information")
-                        // TODO: Personal information screen
+                        // TODO: change email - it's a button - check func
+                    
                     }
                     NavigationLink(destination: ChangePasswordView()) {
                         Text("Change password")
-                        // TODO: Change password screen
+                        // TODO: reset password - it's a button - check func
                     }
                     NavigationLink(destination: ChangeUsernameView()) {
                         Text("Change username")
-                        // TODO: Change username screen
+                        // TODO: update username - it can be a pop up with a textfield - takes a string - check func
                     }
                     Button(action: {
                         Task {
@@ -41,7 +45,10 @@ struct SettingsView: View {
                         Text("Log out")
                     }
                     Button(action: {
-                        // TODO: Delete account action implementation
+                        Task {
+                            try await authViewModel.deleteAccount()
+                            router.popToRoot()
+                        }
                     }) {
                         Text("Delete the account")
                             .foregroundColor(.red) // Styled as red for caution

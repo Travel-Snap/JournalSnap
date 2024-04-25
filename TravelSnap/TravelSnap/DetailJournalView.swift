@@ -7,68 +7,95 @@
 
 import SwiftUI
 
-
-
 struct JournalDetailView: View {
     
-    let journal: JournalEntry = mockUsers[0].journals[0]
+    // Environment objects for accessing FirebaseViewModel and Router
+    @Environment(FirebaseViewModel.self) var firebaseVM
+    @Environment(Router.self) var router
+    
+    //with this variable you can hide or show the delete button if the entry doesn't belong to the user
+    @State var isUsersEntry = false
     
     var body: some View {
+        
 
             VStack (alignment: .leading){
                 // Display the image associated with the journal entry
-                Image(journal.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding()
                 
-                Text(journal.title)
-                    .font(.title)
-                    .fontWeight(.bold) // Make the text bold
-                    .padding(.horizontal) // Add padding to the text
+                //I created a variable for you in the firebaseVM that gets set from the profile or the feed screen when you click an entry.
+                AsyncImage(url: URL(string: firebaseVM.selectedEntry?.photoURL ?? "")) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 300, height: 300)
+                            .cornerRadius(20)
+                    case .failure(_):
+                        Text("No image")
+                    @unknown default:
+                        Text("No image")
+                    }
+                }
                 
-                HStack(alignment: .center){
+                HStack(){
                     Image(systemName: "mappin.circle.fill") // Marker icon
                         .font(.system(size: 50))
                         .foregroundColor(.gray) // Set color to blue
                         .padding(.trailing) // Add trailing padding to separate from the text
                     VStack{
-                        Text(journal.title)
-                            .font(.title)
-                            .padding(.horizontal) // Add padding to the text
-                        Text(journal.date)
+                        Text(firebaseVM.selectedEntry?.timestamp ?? Date(), style: .date)
                             .font(.title)
                             .padding(.horizontal) // Add padding to the text
                             .foregroundColor(.blue)
-                        Text(journal.location)
+                        Text(firebaseVM.selectedEntry?.location ?? "")
                             .font(.title)
                             .padding(.horizontal) // Add padding to the text
                             .foregroundColor(.blue)
                     }
                     
                 }
-                Text(journal.caption)
-                    .font(.title)
+                Text(firebaseVM.selectedEntry?.description ?? "")
+                    .font(.caption)
                     .padding(.horizontal) // Add padding to the text
-                
-                
                 HStack{
+                    
                     Spacer()
+                    
                     // Delete Entry Button
-                    Button(action: {
-                        // Placeholder action for delete entry
-                    }) {
-                        HStack(alignment: .center) {
-                            Image(systemName: "trash.fill")
-                                .foregroundColor(.black)
-                            Text("Delete this entry")
-                                .fontWeight(.bold)
-                                .foregroundColor(.black)
-                                .padding()
+                        Button(action: {
+                            Task {
+                                do {
+                                    try await firebaseVM.deleteEntry(id: firebaseVM.selectedEntry?.id ?? "")
+                                    router.dismiss()
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                            }
+                        }) {
+                            HStack(alignment: .center) {
+                                Image(systemName: "trash.fill")
+                                    .foregroundColor(.black)
+                                Text("Delete this entry")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.black)
+                                    .padding()
+                            }
                         }
-                    }
-                    .padding(.horizontal)
+                        .padding(.horizontal)
+                    
                     Spacer()
+                }
+            }
+            .onAppear {
+                Task {
+                    do {
+                        isUsersEntry = try await firebaseVM.isUsersEntry()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
             .padding(.horizontal)
@@ -80,7 +107,7 @@ struct JournalDetailView: View {
             //.padding()
             //            }
             //)
-            .navigationBarTitle(journal.title)
+            .navigationBarTitle(firebaseVM.selectedEntry?.location ?? "")
             .navigationBarTitleDisplayMode(.inline)
         
     }
@@ -88,8 +115,9 @@ struct JournalDetailView: View {
 
 struct JournalDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        // Preview the JournalDetailView with a mock journal entry
         JournalDetailView()
+            .environment(FirebaseViewModel())
+            .environment(Router())
     }
 }
 

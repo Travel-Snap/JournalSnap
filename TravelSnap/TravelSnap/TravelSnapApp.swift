@@ -13,6 +13,7 @@ struct TravelSnapApp: App {
     
     @State var authViewModel: AuthViewModel
     @State var router = Router()
+    @State var firebaseViewModel: FirebaseViewModel
     
     init() {
         // Configure Firebase
@@ -20,6 +21,7 @@ struct TravelSnapApp: App {
         
         // Initialize authentication view model
         authViewModel = AuthViewModel()
+        firebaseViewModel = FirebaseViewModel()
     }
     
     var body: some Scene {
@@ -43,6 +45,7 @@ struct TravelSnapApp: App {
             }
             .environment(authViewModel) // Providing authentication view model to the environment
             .environment(router) // Providing Router to the environment
+            .environment(firebaseViewModel)
         }
     }
 }

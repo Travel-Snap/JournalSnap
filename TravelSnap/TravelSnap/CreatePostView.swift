@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct CreatePostView: View {
+    
+    // Environment objects for accessing FirebaseViewModel
+    @Environment(FirebaseViewModel.self) var firebaseVM
+    
     @State private var journalEntry: String = ""
     @State private var location: String = ""
-    @State private var selectedImages: [UIImage?] = Array(repeating: nil, count: 5)
+    @State private var selectedImage: UIImage!
     
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
                     // TODO: Handle exit action
+
                 }) {
                     Image(systemName: "xmark.circle")
                         .font(.title)
@@ -25,6 +30,18 @@ struct CreatePostView: View {
                 Spacer()
                 Button(action: {
                     // TODO: Handle save action
+                    //take the description, location and selectedImage and save the entry to the firebase
+                    //check the func in the firebaseVM
+                    
+                    // MARK: You can uncomment the code when you are ready to post
+//                    Task {
+//                        do {
+//                            try await firebaseVM.saveEntry(description: journalEntry, location: location, selectedImage: selectedImage)
+//                        } catch {
+//                            print(error.localizedDescription)
+//                        }
+//                    }
+                    
                 }) {
                     Text("Save")
                         .foregroundColor(.blue)
@@ -79,10 +96,13 @@ struct CreatePostView: View {
             Spacer()
         }
     }
+    
+    
 }
 
 struct CreatePostView_Previews: PreviewProvider {
     static var previews: some View {
         CreatePostView()
+            .environment(FirebaseViewModel())
     }
 }
