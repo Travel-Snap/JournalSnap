@@ -53,6 +53,24 @@ struct CreatePostView: View {
             }
             .padding()
             
+            // temporarily placing image here
+            ZStack {
+                if let selectedImage = selectedImage {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: 370, maxHeight: 300)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .padding()
+                } else {
+                    Text("No image selected")
+                        .foregroundColor(.gray)
+                        .font(.headline)
+                        .padding()
+                }
+            }
+            //
+            
             VStack(alignment: .leading, spacing: 8) {
                 Text("Write a journal entry")
                     .foregroundColor(.gray)
@@ -64,51 +82,46 @@ struct CreatePostView: View {
                     .frame(maxHeight: .infinity) // Allow the TextField to expand vertically
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                 
-                HStack {
-                    Spacer()
-                    ForEach(0..<5, id: \.self) { index in
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30) // Set smaller size
-                            .foregroundColor(.gray) // Set gray color
-                            .padding(.horizontal, 10)
-                            .onTapGesture {
-                                // TODO: Handle photo picker action
-                            }
-                        Spacer()
-                    }
-                }
-                .padding(.horizontal)
-                
-                HStack {
-                    Spacer()
-                    ForEach(0..<5, id: \.self) { index in
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30) // Set smaller size
-                            .foregroundColor(.gray) // Set gray color
-                            .padding(.horizontal, 10)
-                            .onTapGesture {
-                                // TODO: Handle photo picker action
-                            }
-                        Spacer()
-                    }
-                }
-                .padding(.horizontal)
+//                HStack {
+//                    Spacer()
+//                    ForEach(0..<5, id: \.self) { index in
+//                        Image(systemName: "plus.circle")
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: 30, height: 30) // Set smaller size
+//                            .foregroundColor(.gray) // Set gray color
+//                            .padding(.horizontal, 10)
+//                            .onTapGesture {
+//                                // TODO: Handle photo picker action
+//                            }
+//                        Spacer()
+//                    }
+//                }
+//                .padding(.horizontal)
                 
                 // ////// PhotosPicker
-                Spacer()
                 
+                
+                HStack() {
                     PhotosPicker(selection: $selectedItem, matching: .images) {
                         Image(systemName: "plus.circle")
                             .resizable()
-                            .frame(width: 30, height: 30, alignment: .center)
+                            .frame(width: 30, height: 30)
                     }
                     .controlSize(.large)
-                .foregroundColor(.gray)
-                .frame(alignment: .center)
+                    .foregroundColor(.gray)
+                }
+                .onChange(of: selectedItem) {
+                    Task {
+                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
+                            if let image = UIImage(data: data) {
+                                selectedImage = image
+                            } else {
+                                print("image load failed")
+                            }
+                        }
+                    }
+                }
                 
                 
                 Spacer()
