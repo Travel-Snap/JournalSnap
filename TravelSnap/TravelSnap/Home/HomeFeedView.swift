@@ -10,28 +10,77 @@ struct HomeFeedView: View {
     
     @State var entries: [Entry] = []
     
+//    var body: some View {
+//
+//        List(entries) { entry in
+//            
+//            //TODO: put the postView into a button, so if pressed it will go to the details view
+//            //because we use the router, you can't pass the entry direclty from here to the details view, set the entry to the selectedEntry I created in the firebaseVM that gets set into the detailsView.
+//            
+//                PostView(entry: entry)
+//
+//                }
+//                .navigationBarTitle("TravelSnap")
+//                .navigationBarTitleDisplayMode(.inline)
+//                .onAppear {
+//                    // use once firebase fetch is implemented
+//                    Task {
+//                        do {
+//                            entries = try await firebaseVM.fetchEntries()
+//                            
+//                        }
+//                    }
+//                }
+//        }
     var body: some View {
-
-        List(entries) { entry in
-            
-            //TODO: put the postView into a button, so if pressed it will go to the details view
-            //because we use the router, you can't pass the entry direclty from here to the details view, set the entry to the selectedEntry I created in the firebaseVM that gets set into the detailsView.
-            
-                PostView(entry: entry)
-
+            NavigationView {
+                ScrollView {
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(400)), count: 1)) {
+                        ForEach(entries) { entry in
+//                            NavigationLink(destination: PostView(entry: entry)) {
+//                                PostView(entry: entry)
+//                            }
+                            
+                            Button(action: {
+                                                // Set the selectedEntry in the FirebaseViewModel
+                                                firebaseVM.selectedEntry = entry
+                                                // Navigate to the DetailJournalView
+                                router.navigate(to: .detailsView)
+                                            }) {
+                                                PostView(entry: entry)
+                                            }
+                        }
+                    }
+                    .padding()
                 }
-                .navigationBarTitle("TravelSnap")
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle("TravelSnap", displayMode: .inline)
                 .onAppear {
-                    // use once firebase fetch is implemented
                     Task {
                         do {
                             entries = try await firebaseVM.fetchEntries()
-                            
+                        } catch {
+                            print("Error during fetchEntries: \(error)")
                         }
                     }
                 }
+            }
         }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 //struct HomeFeedView: View {
