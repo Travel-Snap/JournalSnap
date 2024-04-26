@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CreatePostView: View {
     
@@ -15,6 +16,7 @@ struct CreatePostView: View {
     @State private var journalEntry: String = ""
     @State private var location: String = ""
     @State private var selectedImage: UIImage!
+    @State private var selectedItem: PhotosPickerItem?
     
     var body: some View {
         VStack {
@@ -78,6 +80,40 @@ struct CreatePostView: View {
                     }
                 }
                 .padding(.horizontal)
+                
+                HStack {
+                    Spacer()
+                    ForEach(0..<5, id: \.self) { index in
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30) // Set smaller size
+                            .foregroundColor(.gray) // Set gray color
+                            .padding(.horizontal, 10)
+                            .onTapGesture {
+                                // TODO: Handle photo picker action
+                            }
+                        Spacer()
+                    }
+                }
+                .padding(.horizontal)
+                
+                // ////// PhotosPicker
+                Spacer()
+                
+                    PhotosPicker(selection: $selectedItem, matching: .images) {
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30, alignment: .center)
+                    }
+                    .controlSize(.large)
+                .foregroundColor(.gray)
+                .frame(alignment: .center)
+                
+                
+                Spacer()
+                // //////
+                
                 
                 HStack {
                     Image(systemName: "location.fill")
