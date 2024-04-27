@@ -18,13 +18,13 @@ struct User: Codable {
 
 struct Entry: Codable, Identifiable {
     @DocumentID var id: String?
-    var photoURL: String
-    var description: String
+    var photoURL: String?
+    var description: String?
     var timestamp: Date
-    var location: String
+    var location: String?
     var likes: Int?
     var comments: [String]?
-    var userID: String
+    var userID: String?
     var user: User?
     
     enum CodingKeys: String, CodingKey {
