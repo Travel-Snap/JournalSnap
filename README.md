@@ -40,6 +40,9 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 * [ ] User can integrate their journals to other social platforms
 * [ ] Users can track weather information base on location and time
 * [ ] Users can track their travel budgets daily
+* [ ] Users can add comments to journal posts
+* [ ] Users can add likes to journal posts
+* [ ] Users can share journal posts
 
 ### 2. Screen Archetypes
 * [X] **Welcome Screen**
