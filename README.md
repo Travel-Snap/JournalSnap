@@ -92,7 +92,7 @@ https://github.com/Travel-Snap/TravelSnap/assets/78409617/1ba75e78-b930-4596-a7d
 
 Sprint 3 build:
 
-![Build 2](https://github.com/Travel-Snap/TravelSnap/assets/78409617/3a534ac9-215d-41ba-907c-014d41ff1364)
+![Build2](https://github.com/Travel-Snap/TravelSnap/assets/78409617/c1ae9c7a-ab64-41a9-8756-a7acc067e1c4)
 
 Sprint 2 build:
 
