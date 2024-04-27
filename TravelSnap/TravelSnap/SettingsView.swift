@@ -14,8 +14,8 @@ struct SettingsView: View {
     // Environment objects for accessing AuthViewModel and Router
     @Environment(AuthViewModel.self) var authViewModel
     @Environment(Router.self) var router
+    //    @ObservedObject var firebaseVM = FirebaseViewModel()
     @Environment(FirebaseViewModel.self) var firebaseVM
-    
     
     @State private var showImagePicker = false
     @State private var selectedImage: UIImage?
@@ -32,6 +32,7 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
+            
             Group {
                 // display user profile
                 if let profileImageURL = pictureURL {
@@ -51,7 +52,6 @@ struct SettingsView: View {
                         .foregroundColor(.gray)
                 }
             }
-            .padding(.top)
             .overlay(alignment: .bottomTrailing){
                 PhotosPicker(
                     selection: $selectedItem, matching: .images) {
@@ -61,30 +61,35 @@ struct SettingsView: View {
                             .background(Circle().foregroundStyle(.teal))
                     }
             }
+            .padding(.top, 30)
+            .padding(.bottom, 10)
             
             List {
-                Section {
+                Section(header: Text("Account")) {
                     // TODO: choose a profile picture - check func - same idea with the post
                     
                     Button(action: {
                         ShowPopUp = true
                     }, label: {
                         Text("Change Username")
-                    })
+                    }).listRowSeparator(.hidden)
                     
                     Button(action: {
                         ShowPopUpForEmail = true
                         
                     }) {
                         Text("Update Email")
-                    }
+                    }.listRowSeparator(.hidden)
                     
                     Button(action: {
                         showAlertForPassword = true
                         
                     }) {
                         Text("Reset Password")
-                    }
+                    }.listRowSeparator(.hidden)
+                }
+                
+                Section(header: Text("Actions")) {
                     
                     Button(action: {
                         Task {
@@ -97,7 +102,7 @@ struct SettingsView: View {
                         }
                     }) {
                         Text("Log out")
-                    }
+                    }.listRowSeparator(.hidden)
                     
                     Button(action: {
                         Task {
@@ -107,7 +112,8 @@ struct SettingsView: View {
                     }) {
                         Text("Delete the account")
                             .foregroundColor(.red) // Styled as red for caution
-                    }
+                    }.listRowSeparator(.hidden)
+                    
                 }
             }
             .alert("Enter your new email", isPresented: $ShowPopUpForEmail, actions: {
@@ -170,15 +176,38 @@ struct SettingsView: View {
                     selectedImage = image
                     try await firebaseVM.setProfileImage(selectedImage: image)
                     pictureURL = try await firebaseVM.fetchUserProfilePictureURL()
-
+                    
                 } else {
                     print("load failed")
                 }
             }
-        }
+        }.listStyle(.plain)
     }
 }
 
+struct PersonalInfoView: View {
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
+    var body: some View {
+        Text("Personal information")
+    }
+}
+
+struct ChangePasswordView: View {
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
+    var body: some View {
+        Text("Change password")
+    }
+}
+
+struct ChangeUsernameView: View {
+    @Environment(AuthViewModel.self) var authViewModel
+    @Environment(Router.self) var router
+    var body: some View {
+        Text("Change username")
+    }
+}
 
 
 #Preview {
@@ -186,5 +215,4 @@ struct SettingsView: View {
         .environment(AuthViewModel())
         .environment(Router())
         .environment(FirebaseViewModel())
-    
 }
