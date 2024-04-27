@@ -27,7 +27,7 @@ struct SettingsView: View {
                     AsyncImage(url: URL(string: profileImageURL)) { image in
                         image
                             .resizable()
-                            .frame(width: 100, height: 100)
+                            .frame(width: 150, height: 150)
                             .clipShape(Circle())
                     } placeholder: {
                         ProgressView()
@@ -35,14 +35,21 @@ struct SettingsView: View {
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 150, height: 150)
                         .foregroundColor(.gray)
                 }
             }
             .padding(.top)
-            .onTapGesture {
-                showImagePicker.toggle()
-            }
+            .overlay(
+                PhotosPicker(
+                    selection: $selectedItem, matching: .images, @ViewBuilder photosPickerContent: { _ in
+                        Image(systemName: "camera")
+                            .foregroundColor(.black)
+                            .padding(6)
+                            .clipShape(Circle())
+                    }
+                )
+            )
             
             List {
                 Section {
@@ -86,17 +93,14 @@ struct SettingsView: View {
             }
             .navigationBarTitle("Settings")
         }
-        .sheet(isPresented: $showImagePicker) {
-                    ImagePicker(selectedImage: $selectedImage)
-                }
-        .onChange(of: selectedImage) { _ in
+        .onChange(of: selectedItem) { _ in
             Task {
-                if let selectedImage = selectedImage {
-                    do {
-                        try await firebaseVM.setProfileImage(selectedImage: selectedImage)
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                if let data = try? await selectedItem?.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    selectedImage = image
+                    try await firebaseVM.setProfileImage(selectedImage: image)
+                } else {
+                    print("load failed")
                 }
             }
         }
