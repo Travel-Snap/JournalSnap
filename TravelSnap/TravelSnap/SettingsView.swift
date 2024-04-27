@@ -6,27 +6,39 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import PhotosUI
 
 struct SettingsView: View {
     
     // Environment objects for accessing AuthViewModel and Router
     @Environment(AuthViewModel.self) var authViewModel
     @Environment(Router.self) var router
-    @ObservedObject var firebaseVM = FirebaseViewModel()
+    @Environment(FirebaseViewModel.self) var firebaseVM
+    
     
     @State private var showImagePicker = false
     @State private var selectedImage: UIImage?
     @State private var selectedItem: PhotosPickerItem?
+    @State private var pictureURL: String?
     
-        
+    
+    @State var showAlertForPassword: Bool = false
+    @State var ShowPopUp: Bool = false
+    @State var newUsername: String = ""
+    @State var newEmail: String = ""
+    @State var ShowPopUpForEmail: Bool = false
+    
+    
     var body: some View {
         VStack {
             Group {
                 // display user profile
-                if let profileImageURL = authViewModel.currentUser?.profilePictureURL {
+                if let profileImageURL = pictureURL {
                     AsyncImage(url: URL(string: profileImageURL)) { image in
                         image
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 150, height: 150)
                             .clipShape(Circle())
                     } placeholder: {
@@ -40,34 +52,40 @@ struct SettingsView: View {
                 }
             }
             .padding(.top)
-            .overlay(
+            .overlay(alignment: .bottomTrailing){
                 PhotosPicker(
-                    selection: $selectedItem, matching: .images, @ViewBuilder photosPickerContent: { _ in
+                    selection: $selectedItem, matching: .images) {
                         Image(systemName: "camera")
                             .foregroundColor(.black)
-                            .padding(6)
-                            .clipShape(Circle())
+                            .padding(12)
+                            .background(Circle().foregroundStyle(.teal))
                     }
-                )
-            )
+            }
             
             List {
                 Section {
                     // TODO: choose a profile picture - check func - same idea with the post
                     
-                    NavigationLink(destination: PersonalInfoView()) {
-                        Text("Personal information")
-                        // TODO: change email - it's a button - check func
+                    Button(action: {
+                        ShowPopUp = true
+                    }, label: {
+                        Text("Change Username")
+                    })
+                    
+                    Button(action: {
+                        ShowPopUpForEmail = true
                         
+                    }) {
+                        Text("Update Email")
                     }
-                    NavigationLink(destination: ChangePasswordView()) {
-                        Text("Change password")
-                        // TODO: reset password - it's a button - check func
+                    
+                    Button(action: {
+                        showAlertForPassword = true
+                        
+                    }) {
+                        Text("Reset Password")
                     }
-                    NavigationLink(destination: ChangeUsernameView()) {
-                        Text("Change username")
-                        // TODO: update username - it can be a pop up with a textfield - takes a string - check func
-                    }
+                    
                     Button(action: {
                         Task {
                             do {
@@ -80,6 +98,7 @@ struct SettingsView: View {
                     }) {
                         Text("Log out")
                     }
+                    
                     Button(action: {
                         Task {
                             try await authViewModel.deleteAccount()
@@ -91,14 +110,67 @@ struct SettingsView: View {
                     }
                 }
             }
+            .alert("Enter your new email", isPresented: $ShowPopUpForEmail, actions: {
+                TextField("", text: $newEmail)
+                Button("Save") {
+                    Task {
+                        do {
+                            try await firebaseVM.updateEmail(email: newEmail)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+                Button("Cancel", action: {})
+            }, message: {
+                Text("An email will be sent to your previous email for verification.")
+            })
+            
+            .alert("Enter your new username", isPresented: $ShowPopUp, actions: {
+                TextField("", text: $newUsername)
+                Button("Save") {
+                    Task {
+                        do {
+                            try await firebaseVM.updateUsername(username: newUsername)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+                Button("Cancel", action: {})
+            })
+            .alert("An email will be sent to you with instructions on how to reset your password.", isPresented: $showAlertForPassword, actions: {
+                Button("Send") {
+                    Task {
+                        do {
+                            try await firebaseVM.resetPassword()
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+                Button("cancel") {}
+            })
             .navigationBarTitle("Settings")
         }
-        .onChange(of: selectedItem) { _ in
+        .onAppear {
+            Task {
+                do {
+                    pictureURL = try await firebaseVM.fetchUserProfilePictureURL()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        .onChange(of: selectedItem) { _, _ in
             Task {
                 if let data = try? await selectedItem?.loadTransferable(type: Data.self),
                    let image = UIImage(data: data) {
                     selectedImage = image
                     try await firebaseVM.setProfileImage(selectedImage: image)
+                    pictureURL = try await firebaseVM.fetchUserProfilePictureURL()
+
                 } else {
                     print("load failed")
                 }
@@ -107,29 +179,6 @@ struct SettingsView: View {
     }
 }
 
-struct PersonalInfoView: View {
-    @Environment(AuthViewModel.self) var authViewModel
-    @Environment(Router.self) var router
-    var body: some View {
-        Text("Personal information")
-    }
-}
-
-struct ChangePasswordView: View {
-    @Environment(AuthViewModel.self) var authViewModel
-    @Environment(Router.self) var router
-    var body: some View {
-        Text("Change password")
-    }
-}
-
-struct ChangeUsernameView: View {
-    @Environment(AuthViewModel.self) var authViewModel
-    @Environment(Router.self) var router
-    var body: some View {
-        Text("Change username")
-    }
-}
 
 
 #Preview {

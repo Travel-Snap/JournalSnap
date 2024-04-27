@@ -36,7 +36,6 @@ struct ProfileView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 40, height: 40)
-
                         @unknown default:
                             Text("No Image")
                         }
