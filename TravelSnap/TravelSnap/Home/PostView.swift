@@ -46,7 +46,7 @@ struct PostView: View {
             }
             
             HStack {
-                Text(entry.location)
+                Text(entry.location ?? "")
                     .font(.subheadline)
                 .foregroundColor(.primary)
                 
@@ -55,7 +55,7 @@ struct PostView: View {
                     .foregroundColor(.secondary)
             }
             
-            AsyncImage(url: URL(string: entry.photoURL)) { phase in
+            AsyncImage(url: URL(string: entry.photoURL ?? "")) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
