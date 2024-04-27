@@ -12,9 +12,45 @@ struct SettingsView: View {
     // Environment objects for accessing AuthViewModel and Router
     @Environment(AuthViewModel.self) var authViewModel
     @Environment(Router.self) var router
+    @ObservedObject var firebaseVM = FirebaseViewModel()
+    
+    @State private var showImagePicker = false
+    @State private var selectedImage: UIImage?
+    @State private var selectedItem: PhotosPickerItem?
+    
         
     var body: some View {
-
+        VStack {
+            Group {
+                // display user profile
+                if let profileImageURL = authViewModel.currentUser?.profilePictureURL {
+                    AsyncImage(url: URL(string: profileImageURL)) { image in
+                        image
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(.gray)
+                }
+            }
+            .padding(.top)
+            .overlay(
+                PhotosPicker(
+                    selection: $selectedItem, matching: .images, @ViewBuilder photosPickerContent: { _ in
+                        Image(systemName: "camera")
+                            .foregroundColor(.black)
+                            .padding(6)
+                            .clipShape(Circle())
+                    }
+                )
+            )
+            
             List {
                 Section {
                     // TODO: choose a profile picture - check func - same idea with the post
@@ -22,7 +58,7 @@ struct SettingsView: View {
                     NavigationLink(destination: PersonalInfoView()) {
                         Text("Personal information")
                         // TODO: change email - it's a button - check func
-                    
+                        
                     }
                     NavigationLink(destination: ChangePasswordView()) {
                         Text("Change password")
@@ -56,6 +92,18 @@ struct SettingsView: View {
                 }
             }
             .navigationBarTitle("Settings")
+        }
+        .onChange(of: selectedItem) { _ in
+            Task {
+                if let data = try? await selectedItem?.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    selectedImage = image
+                    try await firebaseVM.setProfileImage(selectedImage: image)
+                } else {
+                    print("load failed")
+                }
+            }
+        }
     }
 }
 
@@ -88,5 +136,6 @@ struct ChangeUsernameView: View {
     SettingsView()
         .environment(AuthViewModel())
         .environment(Router())
+        .environment(FirebaseViewModel())
     
 }
