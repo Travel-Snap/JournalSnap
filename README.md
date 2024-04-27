@@ -57,7 +57,7 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 * [X] There is a button to go to the settings
 * [ ] Users can see their profile picture
 * [X] **Settings Screen**
-* [ ] Users can delete account
+* [X] Users can delete account
 * [X] Users can logout
 * [ ] Users can change username or password
 * [X] **Detail Post Screen**
