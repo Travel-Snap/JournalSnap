@@ -13,22 +13,32 @@ struct TabBarView: View {
     @Environment(Router.self) var router
     @Environment(FirebaseViewModel.self) var firebaseVM
     
+    init() {
+//        UITabBar.appearance().backgroundColor = UIColor.white
+//        UITabBar.appearance().barTintColor = UIColor.white
+        UITabBar.appearance().tintColor = UIColor.black
+        UITabBar.appearance().backgroundColor = UIColor.white
+//        UITabBar.appearance().unselectedItemTintColor = UIColor.white
+//        UITabBar.appearance().unselectedItemTintColor = UIColor.white
+    }
+    
     
     var body: some View {
         TabView {
+            
             HomeFeedView()
                 .tabItem {
-                    Label("", systemImage: "house")
+                    Label("Feed", systemImage: "house")
                 }
             
             CreatePostView()
                 .tabItem {
-                    Label("", systemImage: "plus.app")
+                    Label("Add", systemImage: "plus.app")
                 }
             
             ProfileView()
                 .tabItem {
-                    Label("", systemImage: "person")
+                    Label("Profile", systemImage: "person")
                 }
         }
         .navigationBarBackButtonHidden()
