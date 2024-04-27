@@ -35,7 +35,7 @@ class FirebaseViewModel {
             let imageReference = entryImagesReference.child(document.documentID)
             let _ = try await imageReference.putDataAsync(imageData)
             let photoURL = try await imageReference.downloadURL().absoluteString
-        
+            
             let entry = Entry(photoURL: photoURL, description: description, timestamp: Date(), location: location, userID: currentUserID)
             try entriesCollection.document(document.documentID).setData(from: entry)
         }
@@ -46,7 +46,7 @@ class FirebaseViewModel {
     func fetchEntries() async throws -> [Entry] {
         var entries: [Entry] = []
         
-        let snapshot = try await entriesCollection.order(by: "timestamp", descending: true).getDocuments()
+        let snapshot = try await entriesCollection.getDocuments()
         
         await withTaskGroup(of: Entry?.self) { group in
             snapshot.documents.forEach { document in
@@ -70,11 +70,11 @@ class FirebaseViewModel {
                 }
             }
         }
-        return entries
+        return entries.sorted {$0.timestamp > $1.timestamp}
     }
-
     
-   
+    
+    
     //this function fetches the current user's entries from the firebase for the profileView
     func fetchUsersEntries() async throws -> User? {
         guard let currentUser = Auth.auth().currentUser else {return (nil)}
@@ -107,6 +107,12 @@ class FirebaseViewModel {
         return isUsersEntry
     }
     
+    func deleteEntry(id: String) async throws {
+        guard let currentUser = Auth.auth().currentUser else {return}
+        try await entryImagesReference.child(id).delete()
+        try await entriesCollection.document(id).delete()
+        try await usersCollection.document(currentUser.uid).collection("entries").document(id).delete()
+    }
     
     // settingsView functions
     
@@ -120,20 +126,13 @@ class FirebaseViewModel {
             try await usersCollection.document(currentUser.uid).updateData(["profilePictureURL" : photoURL])
             
             let snapshot = try await usersCollection.document(currentUser.uid).collection("entries").getDocuments()
-                snapshot.documents.forEach { entry in
-                    Task {
+            snapshot.documents.forEach { entry in
+                Task {
                     try await entriesCollection.document(entry.documentID).updateData(["profilePictureURL" : photoURL])
                 }
             }
         }
         
-    }
-    
-    func deleteEntry(id: String) async throws {
-        guard let currentUser = Auth.auth().currentUser else {return}
-        try await entryImagesReference.child(id).delete()
-        try await entriesCollection.document(id).delete()
-        try await usersCollection.document(currentUser.uid).collection("entries").document(id).delete()
     }
     
     func updateUsername(username: String) async throws {
@@ -144,12 +143,24 @@ class FirebaseViewModel {
     // it is not going to working 100% corrent. we need to discuss this
     func updateEmail(email: String) async throws {
         guard let currentUser = Auth.auth().currentUser else {return}
+        
         try await currentUser.sendEmailVerification(beforeUpdatingEmail: email)
+        
     }
     
-    func resetPassword(email: String) async throws {
+    func resetPassword() async throws {
         guard let currentUserEmail = Auth.auth().currentUser?.email else {return}
         try await Auth.auth().sendPasswordReset(withEmail: currentUserEmail)
     }
-
+    
+    func fetchUserProfilePictureURL() async throws -> String? {
+        guard let currentUser = Auth.auth().currentUser else {return nil}
+        
+        let document = try await usersCollection.document(currentUser.uid).getDocument()
+        let user = try document.data(as: User.self)
+        
+        return user.profilePictureURL
+        
+    }
+    
 }
