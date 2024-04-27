@@ -30,13 +30,13 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 **Required Must-have Stories**
 
 * [X] Register a account (login screen)
-* [ ] Create Post (new post screen)
-* [ ] Users can see post history (history/feed screen)
-* [ ] Users can see their post (profile screen)
+* [X] Create Post (new post screen)
+* [X] Users can see their post (profile screen)
 
 **Optional Nice-to-have Stories**
-* [ ] Users can see posts from other users (social feed)
-* [x] Users can see settings to log out, for example (settings screen)
+* [X] Users can see post history (history/feed screen)
+* [X] Users can see posts from other users (social feed)
+* [X] Users can see settings to log out, for example (settings screen)
 * [ ] User can integrate their journals to other social platforms
 * [ ] Users can track weather information base on location and time
 * [ ] Users can track their travel budgets daily
@@ -47,11 +47,11 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 * [X] User can log in.
 * [X] User ca sign up.
 * [X] **Feed Screen**
-* [ ] User can see feed of posts from other users.
+* [X] User can see feed of posts from other users.
 * [X] **New Post Screen**
-* [ ] User can upload photos.
-* [ ] User can pin travel location on the map.
-* [ ] User can write descriptions about the travel.
+* [X] User can upload photos.
+* [X] User can pin travel location on the map.
+* [X] User can write descriptions about the travel.
 * [X] **Profile Screen**
 * [X] User can see all their post and tap on them to go to the detail post screen
 * [X] There is a button to go to the settings
@@ -61,7 +61,7 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
 * [X] Users can logout
 * [ ] Users can change username or password
 * [X] **Detail Post Screen**
-* [ ] Users can see all the details of their post
+* [X] Users can see all the details of their post
 
 ### 3. Navigation
 
@@ -82,7 +82,19 @@ TravelSnap is a mobile application designed to serve as a digital travel journal
   * Leads to **Detail Post Screen**
   * Leads to **Settings screen**
 
+## Demo day prep video
+
+
+https://github.com/Travel-Snap/TravelSnap/assets/78409617/1ba75e78-b930-4596-a7dd-e7ab6c4497b5
+
+
 ## Build progress
+
+Sprint 1 build:
+[Attach GIF]
+
+Sprint 2 build:
+
 ![alt-text](currentBuildProgress.gif)
 
 ## Wireframes!
