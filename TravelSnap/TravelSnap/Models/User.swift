@@ -10,10 +10,10 @@ import FirebaseFirestore
 
 struct User: Codable {
 
-    let username: String
-    let email: String
-    let profilePictureURL: String?
-    let entries: [Entry]?
+    var username: String
+    var email: String
+    var profilePictureURL: String?
+    var entries: [Entry]?
 }
 
 struct Entry: Codable, Identifiable {
@@ -24,6 +24,17 @@ struct Entry: Codable, Identifiable {
     var location: String
     var likes: Int?
     var comments: [String]?
-    let username: String?
-    let profilePictureURL: String?
+    var userID: String
+    var user: User?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case photoURL
+        case description
+        case timestamp
+        case location
+        case likes
+        case comments
+        case userID
+    }
 }

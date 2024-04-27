@@ -18,6 +18,8 @@ struct AuthenticationView: View {
     @State private var password: String = ""
     @State private var isSigningUp: Bool = false
     @State private var isAnimating: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var error: Error? = nil
     
     var body: some View {
         ZStack {
@@ -91,16 +93,18 @@ struct AuthenticationView: View {
                                 try await authViewModel.signUp(username: username, email: email, password: password)
                                 router.navigate(to: .tabBar)
                             } catch {
-                                print(error.localizedDescription)
+                                self.error = error
+                                showAlert = true
                             }
                         }
                     } else {
                         Task {
                             do {
-                                try await authViewModel.signIn(email: email, Password: password)
+                                try await authViewModel.signIn(email: email, password: password)
                                 router.navigate(to: .tabBar)
                             } catch {
-                                print(error.localizedDescription)
+                                self.error = error
+                                showAlert = true
                             }
                         }
                     }
@@ -116,11 +120,16 @@ struct AuthenticationView: View {
 
             }
         }
+        .alert(error?.localizedDescription ?? "Error", isPresented: $showAlert, actions: {
+            Button("Try again", action: {
+                showAlert = false
+            })
+        })
         .navigationBarBackButtonHidden()
         .background(
             Rectangle()
             .ignoresSafeArea()
-            .foregroundStyle(Gradient(colors: [.brown.opacity(0.2), .brown.opacity(0.7)]))
+            .foregroundStyle(Gradient(colors: [.brown.opacity(0.1), .brown.opacity(0.2)]))
         )
     }
 }

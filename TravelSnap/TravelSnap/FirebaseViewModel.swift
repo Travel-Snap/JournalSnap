@@ -15,6 +15,7 @@ class FirebaseViewModel {
     
     //this variable is used to pass the entry from the profileView or HomeFeedView to the detailJournalView.
     var selectedEntry: Entry!
+    var entryUser: User!
     
     //references to the firebase collections
     let usersCollection = Firestore.firestore().collection("Users")
@@ -26,7 +27,7 @@ class FirebaseViewModel {
     //this function save an entry for the createPostView
     func saveEntry(description: String, location: String, selectedImage: UIImage) async throws {
         
-        guard let currentUser = Auth.auth().currentUser else {return}
+        guard let currentUserID = Auth.auth().currentUser?.uid else {return}
         let document = entriesCollection.document()
         
         if let imageData = selectedImage.jpegData(compressionQuality: 0.5) {
@@ -34,42 +35,61 @@ class FirebaseViewModel {
             let imageReference = entryImagesReference.child(document.documentID)
             let _ = try await imageReference.putDataAsync(imageData)
             let photoURL = try await imageReference.downloadURL().absoluteString
-            
-            let userDocument = try await usersCollection.document(currentUser.uid).getDocument()
-            let usersInfo = try userDocument.data(as: User.self)
-            
-            let entry = Entry(photoURL: photoURL, description: description, timestamp: Date(), location: location, username: usersInfo.username, profilePictureURL: usersInfo.profilePictureURL ?? "no profilePicURL")
+        
+            let entry = Entry(photoURL: photoURL, description: description, timestamp: Date(), location: location, userID: currentUserID)
             try entriesCollection.document(document.documentID).setData(from: entry)
         }
-        try await usersCollection.document(currentUser.uid).collection("entries").document(document.documentID).setData(["timestamp" : Date()])
+        try await usersCollection.document(currentUserID).collection("entries").document(document.documentID).setData(["timestamp" : Date()])
     }
     
     //this function fetches all the entries from the firebase for the HomeFeedView
     func fetchEntries() async throws -> [Entry] {
         var entries: [Entry] = []
         
-        let snapshot = try await entriesCollection.getDocuments()
-        try snapshot.documents.forEach { document in
-            let entry = try document.data(as: Entry.self)
-            entries.append(entry)
+        let snapshot = try await entriesCollection.order(by: "timestamp", descending: true).getDocuments()
+        
+        await withTaskGroup(of: Entry?.self) { group in
+            snapshot.documents.forEach { document in
+                group.addTask {
+                    do {
+                        var entry = try document.data(as: Entry.self)
+                        let userDocument = try await self.usersCollection.document(entry.userID).getDocument()
+                        
+                        let user = try userDocument.data(as: User.self)
+                        entry.user = user
+                        return entry
+                        
+                    } catch {
+                        return nil
+                    }
+                }
+            }
+            for await entry in group {
+                if let entry {
+                    entries.append(entry)
+                }
+            }
         }
         return entries
     }
+
     
    
     //this function fetches the current user's entries from the firebase for the profileView
-    func fetchUsersEntries() async throws -> [Entry] {
-        guard let currentUser = Auth.auth().currentUser else {return []}
+    func fetchUsersEntries() async throws -> User? {
+        guard let currentUser = Auth.auth().currentUser else {return (nil)}
         
         var entries: [Entry] = []
-        
+        let userSnapshot = try await usersCollection.document(currentUser.uid).getDocument()
+        var user = try userSnapshot.data(as: User.self)
         let snapshot = try await usersCollection.document(currentUser.uid).collection("entries").getDocuments()
         for doc in snapshot.documents {
             let document = try await entriesCollection.document(doc.documentID).getDocument()
             let entry = try document.data(as: Entry.self)
             entries.append(entry)
         }
-        return entries
+        user.entries = entries
+        return user
     }
     
     //this function is checking if the entry belongs to the current user - for detailJournalView
@@ -131,6 +151,5 @@ class FirebaseViewModel {
         guard let currentUserEmail = Auth.auth().currentUser?.email else {return}
         try await Auth.auth().sendPasswordReset(withEmail: currentUserEmail)
     }
-    
-    
+
 }
