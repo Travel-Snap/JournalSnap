@@ -20,7 +20,6 @@ struct TabBarView: View {
                 .tabItem {
                     Label("", systemImage: "house")
                 }
-            
             CreatePostView()
                 .tabItem {
                     Label("", systemImage: "plus.app")
@@ -31,6 +30,7 @@ struct TabBarView: View {
                     Label("", systemImage: "person")
                 }
         }
+        .tint(.teal)
         .navigationBarBackButtonHidden()
     }
 }

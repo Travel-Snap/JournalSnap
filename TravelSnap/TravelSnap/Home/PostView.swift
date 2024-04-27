@@ -5,43 +5,45 @@ import FirebaseAuth
 
 struct PostView: View {
     
-    let entry: Entry
+    @Environment(FirebaseViewModel.self) var firebaseVM
+
+    var entry: Entry
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                AsyncImage(url: URL(string: entry.profilePictureURL ?? "")) { phase in
+                AsyncImage(url: URL(string: entry.user?.profilePictureURL ?? "Error")) { phase in
                     switch phase {
                     case .empty:
-                        //this is the phase when it is loading and I put the progress view because I had to put something. (put whatever you like)
-                        Image("person")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
+                        //when it is loading the picture
+                        ProgressView()
+                        
                     case .success(let image):
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 40, height: 40)
-                            .clipShape(Circle())
+                           
                     case .failure(_):
-                        // when user hasn't chosen a profile picture yet. (put whatever you like)
-                        Image("person")
+                        // when user hasn't chosen a profile picture yet.
+                        Image(systemName: "person")
                             .resizable()
                             .frame(width: 40, height: 40)
-                            .clipShape(Circle())
+                            .tint(.black)
+                            
                     @unknown default:
                         EmptyView()
                     }
                 }
-                Text(entry.username ?? "User")
+                .clipShape(Circle())
+                
+                Text(entry.user?.username ?? "")
                     .font(.headline)
                     .foregroundStyle(.primary)
                     .foregroundColor(.primary)
                 
                 Spacer()
             }
-            
             
             HStack {
                 Text(entry.location)
@@ -53,23 +55,11 @@ struct PostView: View {
                     .foregroundColor(.secondary)
             }
             
-            
-            
-
-            
-            //MARK: - the description will be shown to the details View.
-           // Text(entry.description)
-            
             AsyncImage(url: URL(string: entry.photoURL)) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
-                    //same here we can use the progressView for this phase
-//                    Image("SunSetMockImage")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(maxWidth: .infinity)
-//                        .clipShape(RoundedRectangle(cornerRadius: 6))
+
                 case .success(let image):
                     image
                         .resizable()
@@ -83,8 +73,6 @@ struct PostView: View {
                     EmptyView()
                 }
             }
-            
-
             
             // we can add these features next sprint if we have time or If you have time, let me know so we can work together and make it this sprint. I can add these fields to the firebase for you.
             HStack {
@@ -111,12 +99,13 @@ struct PostView: View {
             .foregroundColor(.secondary)
             .font(.caption)
             .padding(.horizontal, 5)
-            
         }
         .padding()
     }
 }
 
 #Preview {
-    PostView(entry: Entry(photoURL: "", description: "", timestamp: Date(), location: "Prague", username: "Nick", profilePictureURL: ""))
+    PostView(entry: Entry(photoURL: "", description: "", timestamp: Date(), location: "Prague", userID: "CwBtmdDx3kQ2N3oQ72YfYcFoLFD3"))
+        .environment(FirebaseViewModel())
+
 }

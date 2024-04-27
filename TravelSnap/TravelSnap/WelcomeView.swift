@@ -22,11 +22,11 @@ struct WelcomeView: View {
         ZStack {
             Rectangle()
                 .ignoresSafeArea()
-                .foregroundStyle(.brown.opacity(0.1))
-            
+                .foregroundStyle(Gradient(colors: [.brown.opacity(0.1), .brown.opacity(0.2)]))
             // Texts forming "TravelSnap" with animation
             HStack {
                 Text("T")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -35,6 +35,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("r")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -43,6 +44,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
 
                 Text("a")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -51,6 +53,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("v")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -59,6 +62,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("e")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -67,6 +71,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("l")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -75,6 +80,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("S")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -83,6 +89,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("n")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -91,6 +98,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("a")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,
@@ -99,6 +107,7 @@ struct WelcomeView: View {
                     .opacity(fontSize == maxFontSize ? 0 : 1)
                 
                 Text("p")
+                    .foregroundStyle(.teal)
                     .font(.system(size: fontSize))
                     .offset(
                         x: fontSize == maxFontSize ? CGFloat(Int.random(in: -300...300)) : 0,

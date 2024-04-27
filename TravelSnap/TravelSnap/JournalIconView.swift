@@ -13,17 +13,18 @@ struct JournalIconView: View {
     
     var body: some View {
         ZStack {
-            //Changed it to asyncImage because the firebase gives back a string url
+
             AsyncImage(url: URL(string: journal.photoURL)) { phase in
                 switch phase {
                 case .empty:
-                    // we can make it a progress view in this phase. I left it as an actual image, so we can see how it looks in the previews
-                   // ProgressView()
-                    Image("testImage")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 175, height: 120)
-                        .cornerRadius(20)
+        
+                    ProgressView()
+                    //for testing purposes
+//                    Image("earth")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fill)
+//                        .frame(width: 175, height: 120)
+//                        .cornerRadius(20)
                 case .success(let image):
                     image
                         .resizable()
@@ -60,7 +61,7 @@ struct JournalIconView: View {
 struct JournalIconView_Previews: PreviewProvider {
     static var previews: some View {
       
-        return JournalIconView(journal: Entry(photoURL: "", description: "", timestamp: Date(), location: "", username: "", profilePictureURL: ""))
+        return JournalIconView(journal: Entry(photoURL: "", description: "", timestamp: Date(), location: "", userID: ""))
 
     }
 }

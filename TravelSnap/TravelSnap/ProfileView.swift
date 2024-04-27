@@ -14,89 +14,88 @@ struct ProfileView: View {
     @Environment(Router.self) var router
     @Environment(FirebaseViewModel.self) var firebaseVM
     
-    //an empty array to set the entries when we fetch them
-    @State var entries: [Entry] = []
+    @State var user: User!
     
     var body: some View {
-            VStack {
-                HStack (alignment: .center){
-                    Spacer()
-                    VStack{
-                        if entries.indices.contains(0) {
-                            if let profilePictureURL = entries[0].profilePictureURL, let url = URL(string: profilePictureURL) {
-                                AsyncImage(url: url) { image in
-                                    image.resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 60, height: 60)
-                                        .clipShape(Circle())
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                            }
-                            if let username = entries[0].username {
-                                Text(username)
-                                    .fontWeight(.bold)
-                            }
-                        } else {
-                            Text("Not Available")
+        VStack {
+            HStack (alignment: .center) {
+                Spacer()
+                VStack {
+                    AsyncImage(url: URL(string: user?.profilePictureURL ?? "error")) { phase in
+                        switch phase {
+                        case .empty:
+                            //when it is loading the picture
+                            ProgressView()
+                        case .success(let image):
+                            image.resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 60, height: 60)
+                        case .failure(_):
+                            //when it is loading the picture
+                            Image(systemName: "person")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 40, height: 40)
+
+                        @unknown default:
+                            Text("No Image")
                         }
                     }
+                    .clipShape(Circle())
                     
-                    Text("My Journals")
-                        .font(.title)
+                    Text(user?.username ?? "User")
                         .fontWeight(.bold)
-                        .padding()
-                    
-                    Spacer()
-                    
-                    //           Settings icon
-                    Button(action: {
-                        router.navigate(to: .settings)
-                    }, label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.title)
-                            .foregroundColor(.blue)
-                            .padding()
-                    })
-                    
-                    //TODO: because we save the username and the picture of the user, if you want to display them here before the entries, do it.
-                    Spacer()  
                 }
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
-                        ForEach(entries) { entry in
-                            Button(action: {
-                                //we set the selected entry to the variable in the firabaseVM, so we can have access to it from the details view
-                                firebaseVM.selectedEntry = entry
-                                router.navigate(to: .detailsView)
-                            }, label: {
-                                JournalIconView(journal: entry)
-                            })
-                        }
-                    }
-                    .padding([.horizontal, .bottom], 20)
-                }
-            }
-            .onAppear {
-                //fetching entries from firebase when the view appears
-                Task {
-                    do {
-                        let fetchedEntries = try await firebaseVM.fetchUsersEntries()
-                        entries = fetchedEntries
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                    
-                }
+                Text("My Journals")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
                 
+                Spacer()
+                
+                //           Settings icon
+                Button(action: {
+                    router.navigate(to: .settings)
+                }, label: {
+                    Image(systemName: "gearshape.fill")
+                        .font(.title)
+                        .foregroundColor(.teal)
+                        .padding()
+                })
+                Spacer()
             }
-        
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 20) {
+                    ForEach(user?.entries ?? []) { entry in
+                        Button(action: {
+                            firebaseVM.selectedEntry = entry
+                            router.navigate(to: .detailsView)
+                        }, label: {
+                            JournalIconView(journal: entry)
+                        })
+                    }
+                }
+                .padding([.horizontal, .bottom], 20)
+            }
+        }
+        .onAppear {
+            //fetching entries from firebase when the view appears
+            Task {
+                do {
+                    user = try await firebaseVM.fetchUsersEntries()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
+
+
 // Preview for ProfileView using mock data
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(entries: [Entry(photoURL: "", description: "", timestamp: Date(), location: "", username: "", profilePictureURL: "")])
+        ProfileView()
             .environment(Router())
             .environment(FirebaseViewModel())
     }
