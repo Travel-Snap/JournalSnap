@@ -53,7 +53,7 @@ class FirebaseViewModel {
                 group.addTask {
                     do {
                         var entry = try document.data(as: Entry.self)
-                        let userDocument = try await self.usersCollection.document(entry.userID).getDocument()
+                        let userDocument = try await self.usersCollection.document(entry.userID ?? "error").getDocument()
                         
                         let user = try userDocument.data(as: User.self)
                         entry.user = user

@@ -14,7 +14,7 @@ struct JournalIconView: View {
     var body: some View {
         ZStack {
 
-            AsyncImage(url: URL(string: journal.photoURL)) { phase in
+            AsyncImage(url: URL(string: journal.photoURL ?? "error")) { phase in
                 switch phase {
                 case .empty:
         
@@ -39,7 +39,7 @@ struct JournalIconView: View {
             }
             
             VStack {
-                Text(journal.location)
+                Text(journal.location ?? "")
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
